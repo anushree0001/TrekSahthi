@@ -25,7 +25,7 @@
                     onAction="#handleDashboard"
                     style="-fx-font-size: 14px; -fx-padding: 6 12; -fx-background-color: white; -fx-text-fill: #4CAF50; -fx-background-radius: 5;" />
 
-            <Button fx:id="attractionsButton" text="Attractions" onAction="#handleAttractions" styleClass="btn-default"/>
+<!--            <Button fx:id="attractionsButton" text="Attractions" onAction="#handleAttractions" styleClass="btn-default"/>-->
 <!--            <Button fx:id="bookingDetailsButton" text="Booking Details" onAction="#handleBookingDetails" styleClass="btn-default"/>-->
             <Button fx:id="signupButton" text="SignUp" onAction="#handleSignup" styleClass="btn-signup"/>
             <Button fx:id="loginButton" text="Login" onAction="#handleLogin" styleClass="btn-login"/>

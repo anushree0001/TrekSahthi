@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class WelcomeController {
     @FXML
-    private Button loginButton, signupButton, bookingDetailsButton, attractionsButton;
+    private Button loginButton, signupButton;
     @FXML
     private void handleDashboard(ActionEvent event) {
         try {
@@ -70,19 +70,19 @@ public class WelcomeController {
 //            e.printStackTrace();
 //        }
 //    }
-
-    @FXML
-    private void handleAttractions() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/attractions.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-            Stage stage = (Stage) attractionsButton.getScene().getWindow();
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//
+//    @FXML
+//    private void handleAttractions() {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/attractions.fxml"));
+//            Parent root = loader.load();
+//            Scene scene = new Scene(root);
+//            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+//            Stage stage = (Stage) attractionsButton.getScene().getWindow();
+//            stage.setScene(scene);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 }
