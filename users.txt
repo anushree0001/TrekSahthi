@@ -1,0 +1,6 @@
+Anushree,pass123,GUIDE
+Rina,pass123,GUIDE
+Bina,pass123,GUIDE
+Naruto,pass123,TOURIST
+Goku,pass123,TOURIST
+Ichigo,pass123,TOURIST

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.treksathi.controllers.LoginController">
+    <VBox styleClass="main-container" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+
+        <!-- Header Section with Green Background -->
+        <VBox styleClass="header-section" alignment="CENTER" spacing="20" VBox.vgrow="NEVER">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+
+            <!-- Form Container with White Background -->
+            <VBox styleClass="form-container" alignment="CENTER" spacing="20" maxWidth="450">
+                <VBox.margin>
+                    <Insets top="30" bottom="30" left="30" right="30"/>
+                </VBox.margin>
+
+                <!-- Title and Login Link -->
+                <VBox alignment="CENTER" spacing="10">
+                    <Label fx:id="titleLabel" text="Log In" styleClass="header-title"/>
+                    <HBox alignment="CENTER" spacing="5">
+                        <Label fx:id="noAccountLabel" text="Don't have an account?" styleClass="header-subtitle"/>
+                        <Hyperlink fx:id="signupLink" onAction="#handleSignupLink" text="Sign Up"
+                                   styleClass="header-link"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Form Fields Section -->
+                <VBox alignment="CENTER" spacing="25" maxWidth="Infinity">
+                    <VBox.margin>
+                        <Insets top="20"/>
+                    </VBox.margin>
+
+                    <!-- Email Field -->
+                    <VBox alignment="CENTER_LEFT" spacing="8" maxWidth="Infinity">
+                        <Label text="USERNAME" styleClass="field-label"/>
+                        <TextField fx:id="usernameField" promptText="anushree001@gmail.com"
+                                   styleClass="custom-text-field" maxWidth="Infinity"/>
+                    </VBox>
+
+                    <!-- Password Field -->
+                    <VBox alignment="CENTER_LEFT" spacing="8" maxWidth="Infinity">
+                        <Label text="PASSWORD" styleClass="field-label"/>
+                        <PasswordField fx:id="passwordField" promptText="******" styleClass="custom-password-field"
+                                       maxWidth="Infinity"/>
+                    </VBox>
+
+                    <!-- Sign Up Button -->
+                    <Button fx:id="loginButton" text="sign in" onAction="#handleLogin" styleClass="login-button"
+                            maxWidth="Infinity"/>
+
+                    <!-- Status Label -->
+                    <Label fx:id="statusLabel" styleClass="status-label"/>
+                </VBox>
+            </VBox>
+        </VBox>
+
+        <!-- Language Switch Bottom Right -->
+        <AnchorPane>
+            <HBox alignment="CENTER_RIGHT" spacing="5" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20">
+                <Button fx:id="languageButton" onAction="#toggleLanguage" text="En" styleClass="language-btn-active"/>
+            </HBox>
+        </AnchorPane>
+    </VBox>
+</AnchorPane>

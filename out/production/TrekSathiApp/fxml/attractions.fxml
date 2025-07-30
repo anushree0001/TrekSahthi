@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.treksathi.controllers.AttractionsController"
+    prefHeight="800" prefWidth="800"
+>
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #4CAF50; -fx-padding: 15;">
+            <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
+                <Image url="@/images/logo.jpg"/>
+            </ImageView>
+            <Label text="TrekSathi - Your Adventure Companion"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="30" style="-fx-padding= 50px;">
+            <Label text="Welcome to TrekSathi!"
+                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+            <Text text="Discover breathtaking treks and attractions in Nepal." textAlignment="CENTER"
+                  style="-fx-font-size: 18px; -fx-fill: #555;">
+                <font>
+                    <Font size="18.0"/>
+                </font>
+            </Text>
+
+            <HBox spacing="20" alignment="CENTER">
+                <Button text="Explore Treks" onAction="#handleExploreTreks"
+                        style="-fx-font-size: 16px; -fx-padding: 10 20; -fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                <Button text="View Attractions" onAction="#handleViewAttractions"
+                        style="-fx-font-size: 16px; -fx-padding: 10 20; -fx-background-color: #FFC107; -fx-text-fill: #333;"/>
+            </HBox>
+
+            <Button fx:id="loginButton" text="Login" onAction="#handleLogin"
+                    style="-fx-font-size: 16px; -fx-padding: 10 20; -fx-background-color: #9C27B0; -fx-text-fill: white;"/>
+
+        </VBox>
+    </center>
+    <right>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding= 50px;">
+            <ImageView fitWidth="300" preserveRatio="true">
+                <Image url="@/images/logo.jpg"/>
+            </ImageView>
+            <Text text="Join us for an unforgettable trekking experience!" textAlignment="CENTER"
+                  style="-fx-font-size: 16px; -fx-fill: #666;">
+                <font>
+                    <Font size="16.0"/>
+                </font>
+            </Text>
+        </VBox>
+    </right>
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #F0F0F0;">
+            <Label text="© 2025 TrekSathi. All rights reserved." style="-fx-font-size: 12px; -fx-text-fill: #777;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

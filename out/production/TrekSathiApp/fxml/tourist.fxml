@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.treksathi.controllers.TouristController"
+            prefWidth="800" prefHeight="700">
+
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #2196F3; -fx-padding: 15;">
+            <Label text="Welcome, Tourist!" style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;" />
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <VBox spacing="20" alignment="TOP_CENTER" style="-fx-padding: 20;">
+                <Label text="Available Guides" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                <FlowPane fx:id="guideList" hgap="10" vgap="10" />
+
+                <Label text="Popular Locations" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                <FlowPane fx:id="locationPane" hgap="15" vgap="15" style="-fx-padding: 10;" />
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <VBox spacing="15" style="-fx-background-color: #f5f5f5; -fx-padding: 20; -fx-border-color: #ddd; -fx-border-width: 1 0 0 0;">
+            <Label text="Booking Summary" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+            <HBox spacing="20">
+                <VBox spacing="5">
+                    <Label text="Selected Guide:" style="-fx-font-weight: bold;" />
+                    <Label fx:id="selectedGuideLabel" text="None selected" style="-fx-text-fill: #666;" />
+                </VBox>
+
+                <VBox spacing="5">
+                    <Label text="Selected Location:" style="-fx-font-weight: bold;" />
+                    <Label fx:id="selectedLocationLabel" text="None selected" style="-fx-text-fill: #666;" />
+                </VBox>
+
+                <VBox spacing="5">
+                    <Label text="Total Cost:" style="-fx-font-weight: bold;" />
+                    <Label fx:id="totalCostLabel" text="Rs 0" style="-fx-text-fill: #2196F3; -fx-font-size: 16px; -fx-font-weight: bold;" />
+                </VBox>
+            </HBox>
+
+            <Button fx:id="confirmBookingButton" text="Confirm Booking"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10 20;"
+                    onAction="#confirmBooking" disable="true" />
+        </VBox>
+    </bottom>
+</BorderPane>

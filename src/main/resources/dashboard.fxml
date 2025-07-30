@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/17.0.1"
+            fx:controller="com.treksathi.controllers.DashboardController">
+
+    <VBox spacing="20" padding="20">
+        <HBox spacing="20">
+            <PieChart fx:id="bookingPieChart" prefWidth="400" prefHeight="300" />
+            <BarChart fx:id="monthlyBookingChart" title="Monthly Bookings" prefWidth="600" prefHeight="300">
+                <xAxis>
+                    <CategoryAxis label="Month"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Bookings"/>
+                </yAxis>
+            </BarChart>
+        </HBox>
+
+        <LineChart fx:id="touristTrendChart" title="Tourist Trend" prefHeight="300" prefWidth="1000">
+            <xAxis>
+                <CategoryAxis label="Month"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Tourists"/>
+            </yAxis>
+        </LineChart>
+    </VBox>
+</AnchorPane>

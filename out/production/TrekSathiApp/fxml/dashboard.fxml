@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.treksathi.controllers.DashboardController"
+            prefWidth="1200" prefHeight="800">
+
+    <!-- Header -->
+    <top>
+        <VBox style="-fx-background-color: #1976D2; -fx-padding: 20;">
+            <Label text="TrekSathi Dashboard"
+                   style="-fx-font-size: 28px; -fx-text-fill: white; -fx-font-weight: bold;" />
+            <Label text="Analytics Overview"
+                   style="-fx-font-size: 16px; -fx-text-fill: #E3F2FD; -fx-padding: 5 0 0 0;" />
+        </VBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f5f5f5;">
+            <VBox spacing="20" style="-fx-padding: 20;">
+
+                <!-- Statistics Cards Row -->
+                <HBox spacing="20" alignment="CENTER">
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="250">
+                        <Label text="Total Bookings" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                        <Label text="100" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #1976D2;" />
+                    </VBox>
+
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="250">
+                        <Label text="Active Guides" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                        <Label text="30" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;" />
+                    </VBox>
+
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="250">
+                        <Label text="Total Tourists" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                        <Label text="450" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #FF9800;" />
+                    </VBox>
+
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="250">
+                        <Label text="Revenue" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                        <Label text="Rs 2.5M" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #E91E63;" />
+                    </VBox>
+                </HBox>
+
+                <!-- Charts Row 1 -->
+                <HBox spacing="20" alignment="CENTER">
+                    <!-- Pie Chart -->
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="580">
+                        <Label text="User Distribution" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 0 0 10 0;" />
+                        <PieChart fx:id="bookingPieChart" prefHeight="300" />
+                    </VBox>
+
+                    <!-- Bar Chart -->
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="580">
+                        <Label text="Monthly Bookings" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 0 0 10 0;" />
+                        <BarChart fx:id="monthlyBookingChart" prefHeight="300">
+                            <xAxis>
+                                <CategoryAxis />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis />
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+                </HBox>
+
+                <!-- Charts Row 2 -->
+                <HBox spacing="20" alignment="CENTER">
+                    <!-- Line Chart -->
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="1180">
+                        <Label text="Tourist Visit Trends" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 0 0 10 0;" />
+                        <LineChart fx:id="touristTrendChart" prefHeight="350">
+                            <xAxis>
+                                <CategoryAxis />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis />
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+                </HBox>
+
+                <!-- Additional Info Section -->
+                <HBox spacing="20" alignment="CENTER">
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="380">
+                        <Label text="Popular Destinations" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 0 0 15 0;" />
+                        <VBox spacing="10">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="1." style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
+                                <Label text="Everest Base Camp" style="-fx-font-size: 14px;" />
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="2." style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
+                                <Label text="Annapurna Circuit" style="-fx-font-size: 14px;" />
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="3." style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
+                                <Label text="Khopra Ridge" style="-fx-font-size: 14px;" />
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="4." style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
+                                <Label text="Rara Lake" style="-fx-font-size: 14px;" />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="380">
+                        <Label text="Top Guides" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 0 0 15 0;" />
+                        <VBox spacing="10">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="★" style="-fx-font-weight: bold; -fx-text-fill: #FFD700;" />
+                                <Label text="Pemba Sherpa" style="-fx-font-size: 14px;" />
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="★" style="-fx-font-weight: bold; -fx-text-fill: #FFD700;" />
+                                <Label text="Ang Dorje" style="-fx-font-size: 14px;" />
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="★" style="-fx-font-weight: bold; -fx-text-fill: #FFD700;" />
+                                <Label text="Karma Lama" style="-fx-font-size: 14px;" />
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="★" style="-fx-font-weight: bold; -fx-text-fill: #FFD700;" />
+                                <Label text="Tenzin Norbu" style="-fx-font-size: 14px;" />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);" prefWidth="380">
+                        <Label text="Recent Activity" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-padding: 0 0 15 0;" />
+                        <VBox spacing="8">
+                            <Label text="• New booking: EBC Trek" style="-fx-font-size: 12px; -fx-text-fill: #666;" />
+                            <Label text="• Guide registered: John Doe" style="-fx-font-size: 12px; -fx-text-fill: #666;" />
+                            <Label text="• Tourist joined: Jane Smith" style="-fx-font-size: 12px; -fx-text-fill: #666;" />
+                            <Label text="• Booking completed: ABC Trek" style="-fx-font-size: 12px; -fx-text-fill: #666;" />
+                            <Label text="• Payment received: Rs 25,000" style="-fx-font-size: 12px; -fx-text-fill: #666;" />
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Bottom Spacing -->
+                <VBox prefHeight="20" />
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
