@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-        <?import javafx.scene.control.Button?>
-        <?import javafx.scene.control.Label?>
-        <?import javafx.scene.image.Image?>
-        <?import javafx.scene.image.ImageView?>
-        <?import javafx.scene.layout.BorderPane?>
-        <?import javafx.scene.layout.HBox?>
-        <?import javafx.scene.layout.VBox?>
-        <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
 
 <BorderPane fx:controller="com.treksathi.controllers.WelcomeController"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -16,56 +16,93 @@
 
     <!-- Top Navigation -->
     <top>
-        <HBox spacing="20" style="-fx-background-color: #333;" alignment="CENTER_RIGHT">
-            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+        <HBox spacing="20" style="-fx-background-color: linear-gradient(to right, #2c3e50, #34495e); -fx-padding: 15;" alignment="CENTER_RIGHT">
             <ImageView fitHeight="50" fitWidth="120">
                 <Image url="@/images/logo.jpg"/>
             </ImageView>
+
+            <!-- Dashboard Button -->
             <Button text="Dashboard"
                     onAction="#handleDashboard"
-                    style="-fx-font-size: 14px; -fx-padding: 6 12; -fx-background-color: white; -fx-text-fill: #4CAF50; -fx-background-radius: 5;" />
+                    style="-fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-padding: 10 20;
+                           -fx-background-color: linear-gradient(to bottom, #4CAF50, #45a049);
+                           -fx-text-fill: white;
+                           -fx-background-radius: 25;
+                           -fx-border-radius: 25;
+                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+                           -fx-cursor: hand;" />
 
-<!--            <Button fx:id="attractionsButton" text="Attractions" onAction="#handleAttractions" styleClass="btn-default"/>-->
-<!--            <Button fx:id="bookingDetailsButton" text="Booking Details" onAction="#handleBookingDetails" styleClass="btn-default"/>-->
-            <Button fx:id="signupButton" text="SignUp" onAction="#handleSignup" styleClass="btn-signup"/>
-            <Button fx:id="loginButton" text="Login" onAction="#handleLogin" styleClass="btn-login"/>
+            <!-- SignUp Button -->
+            <Button fx:id="signupButton" text="SignUp" onAction="#handleSignup"
+                    style="-fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-padding: 10 20;
+                           -fx-background-color: linear-gradient(to bottom, #2196F3, #1976D2);
+                           -fx-text-fill: white;
+                           -fx-background-radius: 25;
+                           -fx-border-radius: 25;
+                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+                           -fx-cursor: hand;" />
+
+            <!-- Login Button -->
+            <Button fx:id="loginButton" text="Login" onAction="#handleLogin"
+                    style="-fx-font-size: 14px;
+                           -fx-font-weight: bold;
+                           -fx-padding: 10 20;
+                           -fx-background-color: linear-gradient(to bottom, #FF9800, #F57C00);
+                           -fx-text-fill: white;
+                           -fx-background-radius: 25;
+                           -fx-border-radius: 25;
+                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+                           -fx-cursor: hand;" />
         </HBox>
     </top>
 
     <!-- Center Content (with left and right images aligned using HBox) -->
     <center>
-        <HBox alignment="CENTER" spacing="40">
+        <HBox alignment="CENTER" spacing="40" style="-fx-background-color: linear-gradient(to bottom, #ecf0f1, #bdc3c7);">
             <padding><Insets top="30" bottom="30" left="30" right="30"/></padding>
 
             <!-- Left Column -->
             <VBox alignment="CENTER" spacing="20">
-                <ImageView fitWidth="220" preserveRatio="true">
+                <ImageView fitWidth="220" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 3);">
                     <Image url="@/images/left1.jpeg"/>
                 </ImageView>
-                <ImageView fitWidth="220" preserveRatio="true">
+                <ImageView fitWidth="220" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 3);">
                     <Image url="@/images/left2.jpg"/>
                 </ImageView>
             </VBox>
 
             <!-- Middle Content -->
-            <VBox alignment="CENTER" spacing="20">
-                <Label text="Welcome to TrekSathi" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-                <Label text="Where every trek begins with a single click. See the beauty of Nepal."
-                       style="-fx-font-size: 16px;" wrapText="true" maxWidth="500"/>
-                <ImageView fitWidth="500" preserveRatio="true">
+            <VBox alignment="CENTER" spacing="20" style="-fx-background-color: rgba(255,255,255,0.9); -fx-padding: 30; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+                <Label text="Welcome to TrekSathi"
+                       style="-fx-font-size: 28px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: linear-gradient(to right, #2c3e50, #34495e);" />
+
+                <Label text="Where every trek begins with a single click. Discover the breathtaking beauty of Nepal."
+                       style="-fx-font-size: 16px;
+                              -fx-text-fill: #555;
+                              -fx-text-alignment: center;"
+                       wrapText="true" maxWidth="500"/>
+
+                <ImageView fitWidth="500" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-background-radius: 10;">
                     <Image url="@/images/FrontpageScene.jpg"/>
                 </ImageView>
-                <ImageView fitWidth="320" preserveRatio="true">
+
+                <ImageView fitWidth="320" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-background-radius: 10;">
                     <Image url="@/images/Scene2.jpg"/>
                 </ImageView>
             </VBox>
 
             <!-- Right Column -->
             <VBox alignment="CENTER" spacing="20">
-                <ImageView fitWidth="220" preserveRatio="true">
+                <ImageView fitWidth="220" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 3);">
                     <Image url="@/images/right11.jpg"/>
                 </ImageView>
-                <ImageView fitWidth="220" preserveRatio="true">
+                <ImageView fitWidth="220" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 3);">
                     <Image url="@/images/right22.jpg"/>
                 </ImageView>
             </VBox>
