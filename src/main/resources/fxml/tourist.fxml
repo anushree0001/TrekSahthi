@@ -30,7 +30,21 @@
 
     <bottom>
         <VBox spacing="15" style="-fx-background-color: #f5f5f5; -fx-padding: 20; -fx-border-color: #ddd; -fx-border-width: 1 0 0 0;">
-            <Label text="Booking Summary" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <Label text="Booking Details" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+            <!-- Date Selection Section -->
+            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 10; -fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5;">
+                <Label text="Select Date:" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                <DatePicker fx:id="bookingDatePicker" prefWidth="150" />
+                <Label fx:id="selectedDateLabel" text="No date selected" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+            </HBox>
+
+            <!-- Festive Discount Notification -->
+            <Label fx:id="discountLabel" text="" visible="false"
+                   style="-fx-text-fill: #FF6B35; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 5; -fx-background-color: #FFF3E0; -fx-border-color: #FF6B35; -fx-border-radius: 3;" />
+
+            <!-- Booking Summary Section -->
+            <Label text="Booking Summary" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;" />
 
             <HBox spacing="20">
                 <VBox spacing="5">
@@ -52,6 +66,7 @@
             <Button fx:id="confirmBookingButton" text="Confirm Booking"
                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10 20;"
                     onAction="#confirmBooking" disable="true" />
+
         </VBox>
     </bottom>
 </BorderPane>

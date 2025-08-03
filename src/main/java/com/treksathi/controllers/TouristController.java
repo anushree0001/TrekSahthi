@@ -1,9 +1,7 @@
 package com.treksathi.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -11,6 +9,9 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.MonthDay;
 import java.util.Random;
 
 public class TouristController {
@@ -18,10 +19,13 @@ public class TouristController {
     private FlowPane locationPane, guideList;
 
     @FXML
-    private Label selectedGuideLabel, selectedLocationLabel, totalCostLabel;
+    private Label selectedGuideLabel, selectedLocationLabel, totalCostLabel, selectedDateLabel, discountLabel;
 
     @FXML
     private Button confirmBookingButton;
+
+    @FXML
+    private DatePicker bookingDatePicker;
 
     private static final String USER_FILE = "users.txt";
     private final int[] priceOptions = {2000, 2500, 3000, 3500, 4000, 4500, 5000};
@@ -34,11 +38,105 @@ public class TouristController {
     private int selectedGuidePrice = 0;
     private int selectedLocationPrice = 0;
     private String selectedLocationAltitude = "";
+    private LocalDate selectedDate = null;
+    private boolean isFestiveDiscount = false;
+    private final double FESTIVE_DISCOUNT_RATE = 0.15; // 15% discount
 
     @FXML
     public void initialize() {
         loadGuidesFromFile();
         loadLocations();
+        setupDatePicker();
+    }
+
+    private void setupDatePicker() {
+        // Set minimum date to today (prevent booking in the past)
+        bookingDatePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+                // Disable past dates
+                if (date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;");
+                }
+
+                // Optionally, you can disable certain days (e.g., no bookings on Sundays)
+                // if (date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                //     setDisable(true);
+                //     setStyle("-fx-background-color: #ffcccc;");
+                // }
+            }
+        });
+
+        // Set default date to tomorrow
+        bookingDatePicker.setValue(LocalDate.now().plusDays(1));
+        selectedDate = LocalDate.now().plusDays(1);
+        updateDateLabel();
+
+        // Add listener for date selection
+        bookingDatePicker.setOnAction(e -> {
+            selectedDate = bookingDatePicker.getValue();
+            updateDateLabel();
+            checkFestiveDiscount();
+            updateTotal();
+        });
+    }
+
+    private void updateDateLabel() {
+        if (selectedDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+            selectedDateLabel.setText("Date: " + selectedDate.format(formatter));
+        } else {
+            selectedDateLabel.setText("No date selected");
+        }
+    }
+
+    private void checkFestiveDiscount() {
+        if (selectedDate != null) {
+            isFestiveDiscount = isFestiveSeason(selectedDate);
+            updateDiscountLabel();
+        }
+    }
+
+    private boolean isFestiveSeason(LocalDate date) {
+        // Dashain typically falls in September-October (around day 280-300 of year)
+        // Tihar typically falls in October-November (around day 300-320 of year)
+        // These are approximate ranges as festival dates vary each year
+
+        int dayOfYear = date.getDayOfYear();
+        int year = date.getYear();
+
+        // Define festival periods (approximate dates)
+        // You can make these more precise by using actual festival calendars
+        boolean isDashainPeriod = (dayOfYear >= 270 && dayOfYear <= 295); // Mid Sep to Mid Oct
+        boolean isTiharPeriod = (dayOfYear >= 296 && dayOfYear <= 320);   // Mid Oct to Mid Nov
+
+        // Special dates that are commonly festive (you can add more)
+        MonthDay selectedDay = MonthDay.from(date);
+
+        // Some fixed festival dates (adjust according to Nepali calendar if needed)
+        boolean isSpecialFestiveDay =
+                selectedDay.equals(MonthDay.of(10, 15)) || // Around Dashain
+                        selectedDay.equals(MonthDay.of(11, 1)) ||  // Around Tihar
+                        selectedDay.equals(MonthDay.of(9, 29)) ||  // Dashain start approx
+                        selectedDay.equals(MonthDay.of(10, 8));    // Dashain main day approx
+
+        return isDashainPeriod || isTiharPeriod || isSpecialFestiveDay;
+    }
+
+    private void updateDiscountLabel() {
+        if (discountLabel != null) {
+            if (isFestiveDiscount) {
+                discountLabel.setText("🎉 Festive Season Discount: 15% OFF!");
+                discountLabel.setStyle("-fx-text-fill: #FF6B35; -fx-font-weight: bold; -fx-font-size: 14px;");
+                discountLabel.setVisible(true);
+            } else {
+                discountLabel.setText("");
+                discountLabel.setVisible(false);
+            }
+        }
     }
 
     private void loadGuidesFromFile() {
@@ -111,7 +209,6 @@ public class TouristController {
                 {"Upper Dolpo Trek", "/images/Upper Dolpo Trek.jpg", "21000", "5375"}
         };
 
-
         for (String[] location : locations) {
             String name = location[0];
             String imageUrl = location[1];
@@ -150,7 +247,7 @@ public class TouristController {
         card.getChildren().addAll(nameLabel, altitudeLabel, priceLabel);
 
         // Add click handler
-        card.setOnMouseClicked(e -> selectLocation(card, name, altitude,price));
+        card.setOnMouseClicked(e -> selectLocation(card, name, altitude, price));
 
         return card;
     }
@@ -165,10 +262,9 @@ public class TouristController {
         selectedLocationCard = card;
         selectedLocationName = locationName;
         if (altitude > 3000) {
-            selectedLocationAltitude = altitude + " m, Warning!! Take measures for Altitude Sickness "  ;
-        }else{
-            selectedLocationAltitude =   altitude  + " m" ;
-
+            selectedLocationAltitude = altitude + " m, Warning!! Take measures for Altitude Sickness ";
+        } else {
+            selectedLocationAltitude = altitude + " m";
         }
 
         selectedLocationPrice = price;
@@ -182,27 +278,89 @@ public class TouristController {
     }
 
     private void updateTotal() {
-        int total = selectedGuidePrice + selectedLocationPrice;
-        totalCostLabel.setText("Rs " + total);
+        int baseTotal = selectedGuidePrice + selectedLocationPrice;
+        int finalTotal = baseTotal;
 
-        // Enable confirm button only if both guide and location are selected
-        confirmBookingButton.setDisable(selectedGuideCard == null || selectedLocationCard == null);
+        if (isFestiveDiscount && baseTotal > 0) {
+            double discount = baseTotal * FESTIVE_DISCOUNT_RATE;
+            finalTotal = (int) (baseTotal - discount);
+
+            totalCostLabel.setText("Rs " + finalTotal + " (Save Rs " + (int)discount + ")");
+            totalCostLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #FF6B35;");
+        } else {
+            totalCostLabel.setText("Rs " + finalTotal);
+            totalCostLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2196F3;");
+        }
+
+        // Enable confirm button only if guide, location, and date are selected
+        confirmBookingButton.setDisable(selectedGuideCard == null || selectedLocationCard == null || selectedDate == null);
     }
 
     @FXML
     private void confirmBooking() {
-        if (selectedGuideCard != null && selectedLocationCard != null) {
+        if (selectedGuideCard != null && selectedLocationCard != null && selectedDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+            int baseTotal = selectedGuidePrice + selectedLocationPrice;
+            int finalTotal = baseTotal;
+            String discountInfo = "";
+
+            if (isFestiveDiscount) {
+                double discount = baseTotal * FESTIVE_DISCOUNT_RATE;
+                finalTotal = (int) (baseTotal - discount);
+                discountInfo = "\nFestive Discount (15%): -Rs " + (int)discount;
+            }
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Booking Confirmed");
             alert.setHeaderText("Booking Completed Successfully!");
             alert.setContentText("Guide: " + selectedGuideName + "\n" +
                     "Location: " + selectedLocationName + "\n" +
                     "Altitude: " + selectedLocationAltitude + "\n" +
-                    "Total Cost: Rs " + (selectedGuidePrice + selectedLocationPrice));
+                    "Booking Date: " + selectedDate.format(formatter) + "\n" +
+                    "Base Cost: Rs " + baseTotal +
+                    discountInfo + "\n" +
+                    "Final Total: Rs " + finalTotal);
             alert.showAndWait();
+
+            // Optionally save booking to file
+            saveBookingToFile();
 
             // Reset selections after booking
             resetSelections();
+        }
+    }
+
+    private void saveBookingToFile() {
+        try (FileWriter writer = new FileWriter("bookings.txt", true)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+            int baseTotal = selectedGuidePrice + selectedLocationPrice;
+            int finalTotal = baseTotal;
+            String discountApplied = "No";
+
+            if (isFestiveDiscount) {
+                double discount = baseTotal * FESTIVE_DISCOUNT_RATE;
+                finalTotal = (int) (baseTotal - discount);
+                discountApplied = "Festive-15%";
+            }
+
+            String booking = String.format("%s,%s,%s,%d,%d,%s,%s%n",
+                    selectedGuideName,
+                    selectedLocationName,
+                    selectedDate.format(formatter),
+                    baseTotal,
+                    finalTotal,
+                    discountApplied,
+                    java.time.LocalDateTime.now());
+            writer.write(booking);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText("Failed to save booking");
+            errorAlert.setContentText("Could not save booking details to file.");
+            errorAlert.showAndWait();
         }
     }
 
@@ -225,10 +383,18 @@ public class TouristController {
         selectedGuidePrice = 0;
         selectedLocationPrice = 0;
 
+        // Reset date picker to tomorrow
+        bookingDatePicker.setValue(LocalDate.now().plusDays(1));
+        selectedDate = LocalDate.now().plusDays(1);
+        isFestiveDiscount = false;
+
         // Reset UI
         selectedGuideLabel.setText("None selected");
         selectedLocationLabel.setText("None selected");
         totalCostLabel.setText("Rs 0");
+        totalCostLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2196F3;");
+        updateDateLabel();
+        updateDiscountLabel();
         confirmBookingButton.setDisable(true);
     }
 }
