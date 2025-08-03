@@ -33,6 +33,7 @@ public class TouristController {
     private String selectedLocationName = "";
     private int selectedGuidePrice = 0;
     private int selectedLocationPrice = 0;
+    private String selectedLocationAltitude = "";
 
     @FXML
     public void initialize() {
@@ -101,26 +102,28 @@ public class TouristController {
 
     private void loadLocations() {
         String[][] locations = {
-                {"Annapurna Base Camp", "/images/AnnapurnaBaseCamp.jpg", "24000"},
-                {"Kanchenjunga", "/images/anchenjunga Base Camp Trek.jpg", "11000"},
-                {"Everest Base Camp", "/images/Everest BAse Camp.jpg", "35000"},
-                {"Helambu Trek", "/images/Helambu Trek.jpg", "21000"},
-                {"Khopra Ridge Trek", "/images/Khopra Ridge Trek.jpg", "27000"},
-                {"Rara Lake Trek", "/images/Rara Lake Trek.jpg", "17000"},
-                {"Upper Dolpo Trek", "/images/Upper Dolpo Trek.jpg", "21000"},
+                {"Annapurna Base Camp", "/images/AnnapurnaBaseCamp.jpg", "24000", "3000"},
+                {"Kanchenjunga", "/images/anchenjunga Base Camp Trek.jpg", "11000", "2389"},
+                {"Everest Base Camp", "/images/Everest BAse Camp.jpg", "35000", "5364"},
+                {"Helambu Trek", "/images/Helambu Trek.jpg", "21000", "3600"},
+                {"Khopra Ridge Trek", "/images/Khopra Ridge Trek.jpg", "27000", "3660"},
+                {"Rara Lake Trek", "/images/Rara Lake Trek.jpg", "17000", "2990"},
+                {"Upper Dolpo Trek", "/images/Upper Dolpo Trek.jpg", "21000", "5375"}
         };
+
 
         for (String[] location : locations) {
             String name = location[0];
             String imageUrl = location[1];
             int price = Integer.parseInt(location[2]);
+            int altitude = Integer.parseInt(location[3]);
 
-            VBox card = createLocationCard(name, imageUrl, price);
+            VBox card = createLocationCard(name, imageUrl, price, altitude);
             locationPane.getChildren().add(card);
         }
     }
 
-    private VBox createLocationCard(String name, String imageUrl, int price) {
+    private VBox createLocationCard(String name, String imageUrl, int price, int altitude) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.CENTER);
         card.setStyle("-fx-border-color: #ccc; -fx-border-radius: 5px; -fx-padding: 10; -fx-background-color: #f9f9f9; -fx-cursor: hand;");
@@ -138,19 +141,21 @@ public class TouristController {
 
         Label nameLabel = new Label(name);
         nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+        Label altitudeLabel = new Label("Altitude: " + altitude + " m");
+        altitudeLabel.setStyle("-fx-text-fill: #888; -fx-font-size: 12px;");
 
         Label priceLabel = new Label("Rs " + price);
         priceLabel.setStyle("-fx-text-fill: #888; -fx-font-size: 12px;");
 
-        card.getChildren().addAll(nameLabel, priceLabel);
+        card.getChildren().addAll(nameLabel, altitudeLabel, priceLabel);
 
         // Add click handler
-        card.setOnMouseClicked(e -> selectLocation(card, name, price));
+        card.setOnMouseClicked(e -> selectLocation(card, name, altitude,price));
 
         return card;
     }
 
-    private void selectLocation(VBox card, String locationName, int price) {
+    private void selectLocation(VBox card, String locationName, int altitude, int price) {
         // Deselect previous location
         if (selectedLocationCard != null) {
             selectedLocationCard.setStyle("-fx-border-color: #ccc; -fx-border-radius: 5px; -fx-padding: 10; -fx-background-color: #f9f9f9; -fx-cursor: hand;");
@@ -159,6 +164,13 @@ public class TouristController {
         // Select new location
         selectedLocationCard = card;
         selectedLocationName = locationName;
+        if (altitude > 3000) {
+            selectedLocationAltitude = altitude + " m, Warning!! Take measures for Altitude Sickness "  ;
+        }else{
+            selectedLocationAltitude =   altitude  + " m" ;
+
+        }
+
         selectedLocationPrice = price;
 
         // Highlight selected card
@@ -185,6 +197,7 @@ public class TouristController {
             alert.setHeaderText("Booking Completed Successfully!");
             alert.setContentText("Guide: " + selectedGuideName + "\n" +
                     "Location: " + selectedLocationName + "\n" +
+                    "Altitude: " + selectedLocationAltitude + "\n" +
                     "Total Cost: Rs " + (selectedGuidePrice + selectedLocationPrice));
             alert.showAndWait();
 

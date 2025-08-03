@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Treksathi">
+    <output-path>$PROJECT_DIR$/out/artifacts/Treksathi</output-path>
+    <root id="archive" name="Treksathi.jar" />
+  </artifact>
+</component>
